@@ -17,6 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dependencies = []
 
 [project.urls]
 Homepage = "https://iamlucasvieira.github.io/advent-of-code-2020/"
@@ -32,7 +33,7 @@ dev = [
     "ty>=0.0.1a16",
     "pytest-cov>=4.0.0",
     "ruff>=0.11.5",
-    
+    "pydantic>=2.12.3",
 ]
 
 [build-system]
@@ -106,4 +107,3 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 source = ["src"]
-
