@@ -1,7 +1,7 @@
 """Test framework for Advent of Code solutions."""
 
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 import pytest
 from pydantic import BaseModel, computed_field, field_validator, model_validator
@@ -54,9 +54,7 @@ class AocTest(BaseModel):
         """Auto-generate input file path if not provided."""
         if self.input_file is None:
             suffix = "_example" if self.is_example else ""
-            object.__setattr__(
-                self, "input_file", Path(f"./inputs/day{self.day:02d}{suffix}.txt")
-            )
+            object.__setattr__(self, "input_file", Path(f"./inputs/day{self.day:02d}{suffix}.txt"))
         return self
 
     @computed_field
@@ -76,13 +74,13 @@ class AocTest(BaseModel):
 
 # Example usage - define your test cases here
 TEST_CASES: list[AocTest] = [
-        AocTest(
-            day=1,
-            part=1,
-            expected=514579,
-            is_example=True,
-            function=day01.part1,
-        ),
+    AocTest(
+        day=1,
+        part=1,
+        expected=514579,
+        is_example=True,
+        function=day01.part1,
+    ),
 ]
 
 

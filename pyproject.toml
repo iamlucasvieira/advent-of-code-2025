@@ -5,7 +5,7 @@ description = "Advent of Code Solutions 2020"
 authors = [{ name = "Lucas Vieira dos Santos", email = "lucas6eng@gmail.com" }]
 readme = "README.md"
 keywords = ['python']
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -45,13 +45,13 @@ packages = ["src/advent_of_code_2020"]
 
 [tool.ty.environment]
 python = "./.venv"
-python-version = "3.9"
+python-version = "3.10"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py310"
 line-length = 120
 fix = true
 

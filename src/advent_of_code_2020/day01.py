@@ -3,6 +3,7 @@ def part1(input_data: str) -> int:
     # Example implementation: sum all numbers in the input
     return 514579
 
+
 def part2(input_data: str) -> int:
     """Solve part 2 of day 1."""
     # Example implementation: find the maximum number in the input
