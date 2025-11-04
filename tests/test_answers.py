@@ -4,7 +4,8 @@ from collections.abc import Callable
 from pathlib import Path
 
 import pytest
-from pydantic import BaseModel, computed_field, field_validator, model_validator
+from helpers import load_file
+from pydantic import BaseModel, computed_field, field_validator
 
 from advent_of_code_2020 import day01
 
@@ -26,9 +27,9 @@ class AocTest(BaseModel):
     model_config = {"frozen": True}
 
     day: int
-    part: int
+    part: int | None = None
     expected: int | str
-    is_example: bool = True
+    is_example: bool = False
     input_file: Path | None = None
     id: str | None = None
     function: Callable
@@ -49,36 +50,35 @@ class AocTest(BaseModel):
             raise ValueError()
         return v
 
-    @model_validator(mode="after")
-    def set_default_input_file(self) -> "AocTest":
-        """Auto-generate input file path if not provided."""
-        if self.input_file is None:
-            suffix = "_example" if self.is_example else ""
-            object.__setattr__(self, "input_file", Path(f"./inputs/day{self.day:02d}{suffix}.txt"))
-        return self
-
     @computed_field
     @property
     def test_id(self) -> str:
         """Generate readable test ID for pytest output."""
         if self.id:
             return self.id
-        example = "example" if self.is_example else "input"
-        return f"day{self.day:02d}_part{self.part}_{example}"
+        example = "_example" if self.is_example else "_input"
+        part = "" if self.part is None else f"_part{self.part}"
+        return f"day{self.day:02d}{part}{example}"
 
     def read_input(self) -> str:
         """Read and return the input file contents."""
-        assert self.input_file is not None
-        return self.input_file.read_text().strip()
+        if self.input_file:
+            return self.input_file.read_text().strip()
+        return load_file(self.day, self.part, self.is_example)
 
 
 # Example usage - define your test cases here
 TEST_CASES: list[AocTest] = [
     AocTest(
         day=1,
-        part=1,
         expected=514579,
         is_example=True,
+        function=day01.part1,
+    ),
+    AocTest(
+        day=1,
+        expected=858496,
+        is_example=False,
         function=day01.part1,
     ),
 ]
