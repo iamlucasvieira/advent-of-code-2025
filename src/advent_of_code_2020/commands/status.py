@@ -4,7 +4,6 @@ import importlib
 import inspect
 from pathlib import Path
 
-import typer
 from rich.console import Console
 from rich.table import Table
 
@@ -27,10 +26,7 @@ def _check_part_implemented(module, part: int) -> bool:
     # Check if it's a trivial implementation
     lines = [line.strip() for line in source.split("\n") if line.strip() and not line.strip().startswith("#")]
     # If function only has docstring and "return 0", it's not implemented
-    if len(lines) <= 3 and "return 0" in source:
-        return False
-
-    return True
+    return not (len(lines) <= 3 and "return 0" in source)
 
 
 def show_status() -> None:

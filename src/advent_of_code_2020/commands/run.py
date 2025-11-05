@@ -2,12 +2,11 @@
 
 import importlib
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 import typer
 from rich.console import Console
-from rich.table import Table
 
 console = Console()
 
@@ -23,9 +22,9 @@ def run_day(
     # Import the day's module
     try:
         module = importlib.import_module(f"advent_of_code_2020.day{day_padded}")
-    except ModuleNotFoundError:
+    except ModuleNotFoundError as e:
         console.print(f"[red]❌ Day {day} not found. Run 'aoc new {day}' to create it.[/red]")
-        raise typer.Exit(1)
+        raise typer.Exit(1) from e
 
     # Load input data
     project_root = Path(__file__).parent.parent.parent.parent
@@ -41,7 +40,7 @@ def run_day(
     input_data = input_file.read_text()
 
     if not input_data.strip():
-        console.print(f"[yellow]⚠️  Warning: Input file is empty[/yellow]")
+        console.print("[yellow]⚠️  Warning: Input file is empty[/yellow]")
 
     # Determine which parts to run
     parts_to_run = [part] if part else [1, 2]
@@ -62,9 +61,7 @@ def run_day(
             result = func(input_data)
             elapsed = time.perf_counter() - start_time
 
-            console.print(
-                f"[green]   Part {part_num}: [bold]{result}[/bold] ⭐[/green] " f"[dim]({elapsed:.4f}s)[/dim]"
-            )
+            console.print(f"[green]   Part {part_num}: [bold]{result}[/bold] ⭐[/green] [dim]({elapsed:.4f}s)[/dim]")
         except Exception as e:
             console.print(f"[red]   Part {part_num}: ❌ Error: {e}[/red]")
 
