@@ -1,0 +1,23 @@
+"""Day {day}: {title}
+
+https://adventofcode.com/2020/day/{day}
+"""
+
+
+def parse_input(input_data: str) -> list[str]:
+    """Parse the input data for day {day}."""
+    return input_data.strip().split("\n")
+
+
+def part1(input_data: str) -> int:
+    """Solve part 1 of day {day}."""
+    data = parse_input(input_data)
+    # TODO: Implement solution
+    return 0
+
+
+def part2(input_data: str) -> int:
+    """Solve part 2 of day {day}."""
+    data = parse_input(input_data)
+    # TODO: Implement solution
+    return 0
