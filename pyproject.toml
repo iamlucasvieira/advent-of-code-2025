@@ -17,7 +17,13 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = []
+dependencies = [
+    "typer>=0.15.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+aoc = "advent_of_code_2020.cli:app"
 
 [project.urls]
 Homepage = "https://iamlucasvieira.github.io/advent-of-code-2020/"
