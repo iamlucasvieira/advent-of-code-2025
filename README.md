@@ -1,15 +1,15 @@
-# advent-of-code-2020
+# advent-of-code-2025
 
-[![Release](https://img.shields.io/github/v/release/iamlucasvieira/advent-of-code-2020)](https://img.shields.io/github/v/release/iamlucasvieira/advent-of-code-2020)
-[![Build status](https://img.shields.io/github/actions/workflow/status/iamlucasvieira/advent-of-code-2020/main.yml?branch=main)](https://github.com/iamlucasvieira/advent-of-code-2020/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/iamlucasvieira/advent-of-code-2020/branch/main/graph/badge.svg)](https://codecov.io/gh/iamlucasvieira/advent-of-code-2020)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/iamlucasvieira/advent-of-code-2020)](https://img.shields.io/github/commit-activity/m/iamlucasvieira/advent-of-code-2020)
-[![License](https://img.shields.io/github/license/iamlucasvieira/advent-of-code-2020)](https://img.shields.io/github/license/iamlucasvieira/advent-of-code-2020)
+[![Release](https://img.shields.io/github/v/release/iamlucasvieira/advent-of-code-2025)](https://img.shields.io/github/v/release/iamlucasvieira/advent-of-code-2025)
+[![Build status](https://img.shields.io/github/actions/workflow/status/iamlucasvieira/advent-of-code-2025/main.yml?branch=main)](https://github.com/iamlucasvieira/advent-of-code-2025/actions/workflows/main.yml?query=branch%3Amain)
+[![codecov](https://codecov.io/gh/iamlucasvieira/advent-of-code-2025/branch/main/graph/badge.svg)](https://codecov.io/gh/iamlucasvieira/advent-of-code-2025)
+[![Commit activity](https://img.shields.io/github/commit-activity/m/iamlucasvieira/advent-of-code-2025)](https://img.shields.io/github/commit-activity/m/iamlucasvieira/advent-of-code-2025)
+[![License](https://img.shields.io/github/license/iamlucasvieira/advent-of-code-2025)](https://img.shields.io/github/license/iamlucasvieira/advent-of-code-2025)
 
-Advent of Code Solutions 2020
+Advent of Code Solutions 2025
 
-- **Github repository**: <https://github.com/iamlucasvieira/advent-of-code-2020/>
-- **Documentation** <https://iamlucasvieira.github.io/advent-of-code-2020/>
+- **Github repository**: <https://github.com/iamlucasvieira/advent-of-code-2025/>
+- **Documentation** <https://iamlucasvieira.github.io/advent-of-code-2025/>
 
 ## Getting started with your project
 
@@ -21,7 +21,7 @@ First, create a repository on GitHub with the same name as this project, and the
 git init -b main
 git add .
 git commit -m "init commit"
-git remote add origin git@github.com:iamlucasvieira/advent-of-code-2020.git
+git remote add origin git@github.com:iamlucasvieira/advent-of-code-2025.git
 git push -u origin main
 ```
 

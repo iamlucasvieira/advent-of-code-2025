@@ -17,7 +17,7 @@ def new_day(
 
     # Define paths
     project_root = Path(__file__).parent.parent.parent.parent
-    solution_file = project_root / "src" / "advent_of_code_2020" / f"day{day_padded}.py"
+    solution_file = project_root / "src" / "advent_of_code_2025" / f"day{day_padded}.py"
     test_file = project_root / "tests" / f"test_day{day_padded}.py"
     input_file = project_root / "inputs" / f"day{day_padded}.txt"
     example_file = project_root / "inputs" / f"day{day_padded}_example.txt"

@@ -18,4 +18,4 @@ COPY . /app
 # Sync the project
 RUN uv sync --frozen
 
-CMD [ "python", "advent_of_code_2020/foo.py" ]
+CMD [ "python", "advent_of_code_2025/cli.py" ]

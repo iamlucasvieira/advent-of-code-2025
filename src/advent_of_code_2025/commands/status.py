@@ -32,7 +32,7 @@ def _check_part_implemented(module, part: int) -> bool:
 def show_status() -> None:
     """Show completion progress for all days."""
     project_root = Path(__file__).parent.parent.parent.parent
-    src_dir = project_root / "src" / "advent_of_code_2020"
+    src_dir = project_root / "src" / "advent_of_code_2025"
 
     # Find all day files
     day_files = sorted(src_dir.glob("day*.py"))
@@ -42,7 +42,7 @@ def show_status() -> None:
         return
 
     # Create table
-    table = Table(title="🎄 Advent of Code 2020 Progress", show_header=True, header_style="bold cyan")
+    table = Table(title="🎄 Advent of Code 2025 Progress", show_header=True, header_style="bold cyan")
     table.add_column("Day", style="cyan", width=8)
     table.add_column("Part 1", justify="center", width=10)
     table.add_column("Part 2", justify="center", width=10)
@@ -55,7 +55,7 @@ def show_status() -> None:
         day_padded = f"{day_num:02d}"
 
         try:
-            module = importlib.import_module(f"advent_of_code_2020.day{day_padded}")
+            module = importlib.import_module(f"advent_of_code_2025.day{day_padded}")
 
             part1_done = _check_part_implemented(module, 1)
             part2_done = _check_part_implemented(module, 2)

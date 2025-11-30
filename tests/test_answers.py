@@ -7,7 +7,7 @@ import pytest
 from helpers import load_file
 from pydantic import BaseModel, computed_field, field_validator
 
-from advent_of_code_2020 import day01
+from advent_of_code_2025 import day01
 
 
 class AocTest(BaseModel):

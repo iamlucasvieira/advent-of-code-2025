@@ -21,7 +21,7 @@ def run_day(
 
     # Import the day's module
     try:
-        module = importlib.import_module(f"advent_of_code_2020.day{day_padded}")
+        module = importlib.import_module(f"advent_of_code_2025.day{day_padded}")
     except ModuleNotFoundError as e:
         console.print(f"[red]❌ Day {day} not found. Run 'aoc new {day}' to create it.[/red]")
         raise typer.Exit(1) from e

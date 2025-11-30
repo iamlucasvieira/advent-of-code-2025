@@ -1,13 +1,13 @@
-"""CLI for Advent of Code 2020."""
+"""CLI for Advent of Code 2025."""
 
 import typer
 from rich.console import Console
 
-from advent_of_code_2020.commands import new, run, status
+from advent_of_code_2025.commands import new, run, status
 
 app = typer.Typer(
     name="aoc",
-    help="🎄 Advent of Code 2020 CLI",
+    help="🎄 Advent of Code 2025 CLI",
     add_completion=False,
     rich_markup_mode="rich",
 )
