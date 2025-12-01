@@ -1,21 +1,22 @@
 def parse_input(input_data: str) -> list[int]:
     """Parse the input data for day 1."""
-    return [int(n) for n in input_data.split()]
+    direction_mapping = {"L": -1, "R": 1}
+    numbers = []
+    for line in input_data.splitlines():
+        direction, value = line[0], line[1:]
+        numbers.append(direction_mapping[direction] * int(value))
+    return numbers
 
 
-def part1(input_data: str) -> int:
+def part1(input_data: str, start: int = 50) -> int:
     """Solve part 1 of day 1."""
-    parsed_data = parse_input(input_data)
-    expected_sum = 2020
-    seen = set()
-
-    for value in parsed_data:
-        complement = expected_sum - value
-        print(complement)
-        if complement in seen:
-            return value * complement
-        seen.add(value)
-    return -1
+    numbers = parse_input(input_data)
+    total, counter = start, 0
+    for n in numbers:
+        total += n
+        if total % 100 == 0:
+            counter += 1
+    return counter
 
 
 def part2(input_data: str) -> int:

@@ -71,13 +71,13 @@ class AocTest(BaseModel):
 TEST_CASES: list[AocTest] = [
     AocTest(
         day=1,
-        expected=514579,
+        expected=3,
         is_example=True,
         function=day01.part1,
     ),
     AocTest(
         day=1,
-        expected=858496,
+        expected=1102,
         is_example=False,
         function=day01.part1,
     ),
