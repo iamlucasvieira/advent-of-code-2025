@@ -1,6 +1,7 @@
 """Test framework for Advent of Code solutions."""
 
 from collections.abc import Callable
+from typing import Any
 
 import pytest
 from helpers import TestFile
@@ -22,7 +23,7 @@ class AocTest(BaseModel):
     model_config = {"frozen": True}
 
     test_file: TestFile
-    function: Callable
+    function: Callable[[str], Any]
     expected: int | str
     id: str | None = None
 
@@ -37,7 +38,7 @@ class AocTest(BaseModel):
         if self.id:
             return self.id
         # Extract function name (e.g., 'part1' from 'day01.part1')
-        func_name = self.function.__name__
+        func_name = getattr(self.function, "__name__", "unknown")
         return f"{self.test_file.file_identifier}-{func_name}"
 
     def read_input(self) -> str:
