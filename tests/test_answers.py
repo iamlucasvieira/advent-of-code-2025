@@ -63,8 +63,13 @@ class AocTest(BaseModel):
     def read_input(self) -> str:
         """Read and return the input file contents."""
         if self.input_file:
+            if not self.input_file.exists():
+                pytest.skip(f"Input file {self.input_file} not found")
             return self.input_file.read_text().strip()
-        return load_file(self.day, self.part, self.is_example)
+        try:
+            return load_file(self.day, self.part, self.is_example)
+        except FileNotFoundError:
+            pytest.skip(f"Input file for day {self.day} part {self.part} not found")
 
 
 # Example usage - define your test cases here
