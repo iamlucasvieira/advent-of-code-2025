@@ -8,52 +8,58 @@ from math import ceil
 
 
 def parse_input(input_data: str) -> list[tuple[int, int]]:
-    """Parse the input data for day 2."""
-    data = []
-    ranges = input_data.strip().split(",")
-    for r in ranges:
-        start, end = r.split("-")
-        data.append((int(start), int(end)))
-    return data
+    """Parse comma-separated ranges into list of (start, end) tuples."""
+    ranges = []
+    for range_str in input_data.strip().split(","):
+        range_start, range_end = range_str.split("-")
+        ranges.append((int(range_start), int(range_end)))
+    return ranges
 
 
-def repeated_numbers(start: int, end: int, n_times: int) -> Generator[int, None, None]:
-    """Generate numbers with repeated digits in the given range."""
-    if end < start or n_times < 2:
+def generate_pattern_repeated_numbers(
+    range_start: int, range_end: int, repetition_count: int
+) -> Generator[int, None, None]:
+    """Generate numbers formed by repeating a pattern a specified number of times within a range."""
+    if range_end < range_start or repetition_count < 2:
         return
 
-    part_length = ceil(len(str(start)) / n_times)
-    part = 10 ** (part_length - 1)
+    pattern_length = ceil(len(str(range_start)) / repetition_count)
+    min_pattern = 10 ** (pattern_length - 1)
 
+    current_pattern = min_pattern
     while True:
-        repeated = int(f"{part}" * n_times)
+        repeated_number = int(str(current_pattern) * repetition_count)
 
-        if repeated > end:
+        if repeated_number > range_end:
             break
 
-        if repeated >= start:
-            yield repeated
+        if repeated_number >= range_start:
+            yield repeated_number
 
-        part += 1
+        current_pattern += 1
 
 
 def part1(input_data: str) -> int:
-    """Solve part 1 of day 2."""
-    data = parse_input(input_data)
+    """Sum all numbers that are a pattern repeated exactly twice."""
+    ranges = parse_input(input_data)
     total = 0
-    for start, end in data:
-        total += sum(repeated_numbers(start, end, n_times=2))
+    for range_start, range_end in ranges:
+        total += sum(generate_pattern_repeated_numbers(range_start, range_end, repetition_count=2))
     return total
 
 
 def part2(input_data: str) -> int:
-    """Solve part 2 of day 2."""
-    data = parse_input(input_data)
+    """Sum all numbers that are a pattern repeated two or more times."""
+    ranges = parse_input(input_data)
     total = 0
 
-    for start, end in data:
-        sub_total = set()
-        for n_times in range(2, len(str(end)) + 1):
-            sub_total.update(repeated_numbers(start, end, n_times=n_times))
-        total += sum(sub_total)
+    for range_start, range_end in ranges:
+        unique_numbers = set()
+        max_repetitions = len(str(range_end))
+
+        for repetition_count in range(2, max_repetitions + 1):
+            unique_numbers.update(generate_pattern_repeated_numbers(range_start, range_end, repetition_count))
+
+        total += sum(unique_numbers)
+
     return total

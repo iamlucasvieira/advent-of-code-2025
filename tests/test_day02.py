@@ -36,7 +36,7 @@ def test_parse_input():
 )
 def test_repeated_numbers(start, end, expected):
     """Test generating repeated numbers in a range."""
-    result = list(day02.repeated_numbers(start, end, n_times=2))
+    result = list(day02.generate_pattern_repeated_numbers(start, end, repetition_count=2))
     assert result == expected
 
 
@@ -61,5 +61,5 @@ def test_repeated_numbers(start, end, expected):
 )
 def test_repeated_numbers_varied_n(start, end, n_times, expected):
     """Test generating repeated numbers in a range with varied n_times."""
-    result = list(day02.repeated_numbers(start, end, n_times=n_times))
+    result = list(day02.generate_pattern_repeated_numbers(start, end, repetition_count=n_times))
     assert result == expected
