@@ -211,5 +211,6 @@ marimo/_lsp/
 __marimo__/
 
 # Advent of Code input files
-inputs/*
-!inputs/.gitkeep
+# Private puzzle inputs (cannot be shared per AoC rules)
+inputs/private/*
+!inputs/private/.gitkeep

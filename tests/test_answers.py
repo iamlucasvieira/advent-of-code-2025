@@ -22,6 +22,9 @@ class AocTest(BaseModel):
                    - inputs/day{day:02d}_example.txt for examples
                    - inputs/day{day:02d}.txt for puzzle input
         id: Optional custom test ID for pytest output
+        version_controlled: Whether input file is version-controlled. If True, test
+                          fails when file is missing. If False, test skips when missing.
+                          Default False for puzzle inputs that can't be committed.
     """
 
     model_config = {"frozen": True}
@@ -33,6 +36,7 @@ class AocTest(BaseModel):
     input_file: Path | None = None
     id: str | None = None
     function: Callable
+    version_controlled: bool = True
 
     @field_validator("day")
     @classmethod
@@ -62,65 +66,70 @@ class AocTest(BaseModel):
 
     def read_input(self) -> str:
         """Read and return the input file contents."""
-        if self.input_file:
-            if not self.input_file.exists():
-                pytest.skip(f"Input file {self.input_file} not found")
-            return self.input_file.read_text().strip()
         try:
-            return load_file(self.day, self.part, self.is_example)
+            return load_file(
+                day=self.day,
+                part=self.part,
+                is_example=self.is_example,
+                version_controlled=self.version_controlled,
+            )
         except FileNotFoundError:
-            pytest.skip(f"Input file for day {self.day} part {self.part} not found")
+            if self.version_controlled:
+                raise
+            pytest.skip(f"Input file for day {self.day} not found")
 
 
 # Example usage - define your test cases here
 TEST_CASES: list[AocTest] = [
-    AocTest(
-        day=1,
-        expected=3,
-        is_example=True,
-        function=day01.part1,
-    ),
+    AocTest(day=1, expected=3, is_example=True, function=day01.part1, version_controlled=False),
     AocTest(
         day=1,
         expected=1102,
         is_example=False,
         function=day01.part1,
+        version_controlled=False,
     ),
     AocTest(
         day=1,
         expected=6,
         is_example=True,
         function=day01.part2,
+        version_controlled=False,
     ),
     AocTest(
         day=1,
         expected=6175,
         is_example=False,
         function=day01.part2,
+        version_controlled=False,
     ),
     AocTest(
         day=2,
         expected=1227775554,
         is_example=True,
         function=day02.part1,
+        version_controlled=False,
     ),
     AocTest(
         day=2,
         expected=41294979841,
         is_example=False,
         function=day02.part1,
+        version_controlled=False,
     ),
     AocTest(
         day=2,
         expected=4174379265,
         is_example=True,
         function=day02.part2,
+        version_controlled=False,
     ),
     AocTest(
         day=2,
         expected=66500947346,
         is_example=False,
         function=day02.part2,
+        version_controlled=False,
     ),
 ]
 
