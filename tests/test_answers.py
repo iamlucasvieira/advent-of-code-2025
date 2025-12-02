@@ -7,7 +7,7 @@ import pytest
 from helpers import load_file
 from pydantic import BaseModel, computed_field, field_validator
 
-from advent_of_code_2025 import day01
+from advent_of_code_2025 import day01, day02
 
 
 class AocTest(BaseModel):
@@ -92,6 +92,18 @@ TEST_CASES: list[AocTest] = [
         expected=6175,
         is_example=False,
         function=day01.part2,
+    ),
+    AocTest(
+        day=2,
+        expected=1227775554,
+        is_example=True,
+        function=day02.part1,
+    ),
+    AocTest(
+        day=2,
+        expected=41294979841,
+        is_example=False,
+        function=day02.part1,
     ),
 ]
 
