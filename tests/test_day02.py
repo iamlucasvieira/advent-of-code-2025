@@ -36,5 +36,30 @@ def test_parse_input():
 )
 def test_repeated_numbers(start, end, expected):
     """Test generating repeated numbers in a range."""
-    result = list(day02.repeated_numbers(start, end))
+    result = list(day02.repeated_numbers(start, end, n_times=2))
+    assert result == expected
+
+
+@pytest.mark.parametrize(
+    ("start", "end", "n_times", "expected"),
+    [
+        (1000, 2000, 0, []),
+        (1000, 2000, 1, []),
+        (1000, 2000, 2, [1010, 1111, 1212, 1313, 1414, 1515, 1616, 1717, 1818, 1919]),
+        (1000, 2000, 3, []),
+        (1000, 2000, 4, [1111]),
+        (1000, 2000, 5, []),
+    ],
+    ids=[
+        "zero_parts",
+        "single_repeats",
+        "double_repeats",
+        "triple_repeats",
+        "quadruple_repeats",
+        "quintuple_repeats",
+    ],
+)
+def test_repeated_numbers_varied_n(start, end, n_times, expected):
+    """Test generating repeated numbers in a range with varied n_times."""
+    result = list(day02.repeated_numbers(start, end, n_times=n_times))
     assert result == expected
