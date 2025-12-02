@@ -8,11 +8,9 @@ from advent_of_code_2025 import day02
 
 def test_parse_input():
     """Test parsing the input data."""
-    input_data = load_file(day=2, part=None, is_example=True)
+    input_data = load_file(day=2)
     parsed = day02.parse_input(input_data)
-    for start, end in parsed:
-        assert isinstance(start, int)
-        assert isinstance(end, int)
+    assert parsed == [(10, 99), (100, 999)]
 
 
 @pytest.mark.parametrize(
