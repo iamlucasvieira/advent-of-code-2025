@@ -19,8 +19,8 @@ def new_day(
     project_root = Path(__file__).parent.parent.parent.parent
     solution_file = project_root / "src" / "advent_of_code_2025" / f"day{day_padded}.py"
     test_file = project_root / "tests" / f"test_day{day_padded}.py"
-    input_file = project_root / "inputs" / f"day{day_padded}.txt"
-    example_file = project_root / "inputs" / f"day{day_padded}_example.txt"
+    input_file = project_root / "inputs" / "private" / f"day{day_padded}.txt"
+    example_file = project_root / "inputs" / "private" / f"day{day_padded}_example.txt"
 
     # Check if files already exist
     if solution_file.exists():
