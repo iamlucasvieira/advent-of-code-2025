@@ -14,21 +14,23 @@ def test_parse_input():
 
 
 @pytest.mark.parametrize(
-    ("numbers", "expected"),
+    ("numbers", "n", "expected"),
     [
-        ([1, 3, 2, 5, 4], (5, 4)),
-        ([1, 2, 3, 9], (3, 9)),
-        ([5, 1, 5, 2], (5, 5)),
+        ([1, 3, 2, 5, 4], 2, [5, 4]),
+        ([1, 2, 3, 9], 2, [3, 9]),
+        ([5, 1, 5, 2], 2, [5, 5]),
+        ([2, 3, 5, 1, 2, 6, 9, 2], 5, [5, 2, 6, 9, 2]),
     ],
     ids=[
-        "largest in middle",
-        "largest at end",
-        "duplicate largest",
+        "2 largest in middle",
+        "2 largest at end",
+        "2 duplicate largest",
+        "5 largest mixed",
     ],
 )
-def test_two_largest_in_sequence(numbers: list[int], expected: tuple[int, int]):
+def test_n_largest_in_sequence(numbers: list[int], n: int, expected: tuple[int, int]):
     """Test finding the two largest numbers in a sequence."""
-    result = day03.two_largest_in_sequence(numbers)
+    result = day03.n_largest_in_sequence(numbers, n=n)
     assert result == expected
 
 
@@ -37,11 +39,3 @@ def test_part1_example():
     input_data = load_file(day=3)
     result = day03.part1(input_data)
     assert result == 168
-
-
-def test_part2_example():
-    """Test part 2 with example input."""
-    input_data = load_file(day=3)
-    result = day03.part2(input_data)
-    # TODO: Update with expected result from puzzle
-    assert result == 0
