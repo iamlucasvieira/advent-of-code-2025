@@ -30,7 +30,6 @@ def n_largest_in_sequence(numbers: list[int], n: int) -> list[int]:
 
 def list_to_int(digits: list[int]) -> int:
     """Transform a list of integers into a single integer by concatenating the digits."""
-    print("".join(str(digit) for digit in digits))
     return int("".join(str(digit) for digit in digits))
 
 
