@@ -7,14 +7,14 @@ from advent_of_code_2025 import day{day_padded}
 
 def test_parse_input():
     """Test parsing the input data."""
-    input_data = load_file(day={day}, part=None, is_example=True)
+    input_data = load_file(day={day})
     parsed = day{day_padded}.parse_input(input_data)
     assert parsed is not None
 
 
 def test_part1_example():
     """Test part 1 with example input."""
-    input_data = load_file(day={day}, part=None, is_example=True)
+    input_data = load_file(day={day})
     result = day{day_padded}.part1(input_data)
     # TODO: Update with expected result from puzzle
     assert result == 0
@@ -22,7 +22,7 @@ def test_part1_example():
 
 def test_part2_example():
     """Test part 2 with example input."""
-    input_data = load_file(day={day}, part=None, is_example=True)
+    input_data = load_file(day={day})
     result = day{day_padded}.part2(input_data)
     # TODO: Update with expected result from puzzle
     assert result == 0
