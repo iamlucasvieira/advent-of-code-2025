@@ -9,24 +9,24 @@ def test_parse_input():
     """Test parsing the input data."""
     input_data = load_file(day=4)
     parsed = day04.parse_input(input_data)
-    assert parsed == [
+    assert parsed.data == [
         [".", "@", "."],
-        ["@", ".", "."],
+        ["@", "@", "@"],
         [".", "@", "@"],
     ]
+    assert parsed.n_rows == 3
+    assert parsed.n_cols == 3
 
 
 def test_part1_example():
     """Test part 1 with example input."""
     input_data = load_file(day=4)
     result = day04.part1(input_data)
-    # TODO: Update with expected result from puzzle
-    assert result == 4
+    assert result == 3
 
 
 def test_part2_example():
     """Test part 2 with example input."""
     input_data = load_file(day=4)
     result = day04.part2(input_data)
-    # TODO: Update with expected result from puzzle
-    assert result == 0
+    assert result == 6

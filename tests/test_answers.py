@@ -118,6 +118,16 @@ TEST_CASES: list[AocTest] = [
         function=day04.part1,
         expected=1537,
     ),
+    AocTest(
+        test_file=InputFile(day=4, is_example=True, version_controlled=False),
+        function=day04.part2,
+        expected=43,
+    ),
+    AocTest(
+        test_file=InputFile(day=4, is_example=False, version_controlled=False),
+        function=day04.part2,
+        expected=8707,
+    ),
 ]
 
 
