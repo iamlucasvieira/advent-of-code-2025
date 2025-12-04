@@ -4,7 +4,7 @@ import pytest
 from pydantic import BaseModel, field_validator
 
 
-class TestFile(BaseModel):
+class InputFile(BaseModel):
     """Represents an Advent of Code input file.
 
     Args:
@@ -90,7 +90,7 @@ class TestFile(BaseModel):
 def load_file(day: int, part: int | None = None, is_example: bool = False, version_controlled: bool = True) -> str:
     """Load the input file for the given day, part, and example status.
 
-    This is a convenience function that creates a TestFile and calls load() on it.
+    This is a convenience function that creates an InputFile and calls load() on it.
 
     Args:
         day: Day number (1-25)
@@ -102,7 +102,7 @@ def load_file(day: int, part: int | None = None, is_example: bool = False, versi
     Returns:
         File contents as a string, stripped of trailing whitespace.
     """
-    test_file = TestFile(
+    test_file = InputFile(
         day=day,
         part=part,
         is_example=is_example,

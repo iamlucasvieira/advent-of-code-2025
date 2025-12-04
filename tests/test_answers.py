@@ -4,17 +4,17 @@ from collections.abc import Callable
 from typing import Any
 
 import pytest
-from helpers import TestFile
+from helpers import InputFile
 from pydantic import BaseModel, computed_field
 
-from advent_of_code_2025 import day01, day02, day03
+from advent_of_code_2025 import day01, day02, day03, day04
 
 
 class AocTest(BaseModel):
     """Test case for an Advent of Code solution.
 
     Args:
-        test_file: TestFile instance specifying which input file to load
+        test_file: InputFile instance specifying which input file to load
         function: Function to test (e.g., day01.part1)
         expected: Expected result
         id: Optional custom test ID for pytest output
@@ -22,7 +22,7 @@ class AocTest(BaseModel):
 
     model_config = {"frozen": True}
 
-    test_file: TestFile
+    test_file: InputFile
     function: Callable[[str], Any]
     expected: int | str
     id: str | None = None
@@ -49,64 +49,74 @@ class AocTest(BaseModel):
 # Example usage - define your test cases here
 TEST_CASES: list[AocTest] = [
     AocTest(
-        test_file=TestFile(day=1, is_example=True, version_controlled=False),
+        test_file=InputFile(day=1, is_example=True, version_controlled=False),
         function=day01.part1,
         expected=3,
     ),
     AocTest(
-        test_file=TestFile(day=1, is_example=False, version_controlled=False),
+        test_file=InputFile(day=1, is_example=False, version_controlled=False),
         function=day01.part1,
         expected=1102,
     ),
     AocTest(
-        test_file=TestFile(day=1, is_example=True, version_controlled=False),
+        test_file=InputFile(day=1, is_example=True, version_controlled=False),
         function=day01.part2,
         expected=6,
     ),
     AocTest(
-        test_file=TestFile(day=1, is_example=False, version_controlled=False),
+        test_file=InputFile(day=1, is_example=False, version_controlled=False),
         function=day01.part2,
         expected=6175,
     ),
     AocTest(
-        test_file=TestFile(day=2, is_example=True, version_controlled=False),
+        test_file=InputFile(day=2, is_example=True, version_controlled=False),
         function=day02.part1,
         expected=1227775554,
     ),
     AocTest(
-        test_file=TestFile(day=2, is_example=False, version_controlled=False),
+        test_file=InputFile(day=2, is_example=False, version_controlled=False),
         function=day02.part1,
         expected=41294979841,
     ),
     AocTest(
-        test_file=TestFile(day=2, is_example=True, version_controlled=False),
+        test_file=InputFile(day=2, is_example=True, version_controlled=False),
         function=day02.part2,
         expected=4174379265,
     ),
     AocTest(
-        test_file=TestFile(day=2, is_example=False, version_controlled=False),
+        test_file=InputFile(day=2, is_example=False, version_controlled=False),
         function=day02.part2,
         expected=66500947346,
     ),
     AocTest(
-        test_file=TestFile(day=3, is_example=True, version_controlled=False),
+        test_file=InputFile(day=3, is_example=True, version_controlled=False),
         function=day03.part1,
         expected=357,
     ),
     AocTest(
-        test_file=TestFile(day=3, is_example=False, version_controlled=False),
+        test_file=InputFile(day=3, is_example=False, version_controlled=False),
         function=day03.part1,
         expected=17100,
     ),
     AocTest(
-        test_file=TestFile(day=3, is_example=True, version_controlled=False),
+        test_file=InputFile(day=3, is_example=True, version_controlled=False),
         function=day03.part2,
         expected=3121910778619,
     ),
     AocTest(
-        test_file=TestFile(day=3, is_example=False, version_controlled=False),
+        test_file=InputFile(day=3, is_example=False, version_controlled=False),
         function=day03.part2,
         expected=170418192256861,
+    ),
+    AocTest(
+        test_file=InputFile(day=4, is_example=True, version_controlled=False),
+        function=day04.part1,
+        expected=13,
+    ),
+    AocTest(
+        test_file=InputFile(day=4, is_example=False, version_controlled=False),
+        function=day04.part1,
+        expected=1537,
     ),
 ]
 
