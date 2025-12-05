@@ -75,6 +75,6 @@ def part1(input_data: str) -> int:
 
 def part2(input_data: str) -> int:
     """Solve part 2 of day 5."""
-    _data = parse_input(input_data)
-    # TODO: Implement solution
-    return 0
+    ranges, _ = parse_input(input_data)
+    sorted_ranges = merge_ranges(ranges)
+    return sum(r.end - r.start + 1 for r in sorted_ranges)

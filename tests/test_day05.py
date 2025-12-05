@@ -67,5 +67,4 @@ def test_part2_example():
     """Test part 2 with example input."""
     input_data = load_file(day=5)
     result = day05.part2(input_data)
-    # TODO: Update with expected result from puzzle
-    assert result == 0
+    assert result == 122
