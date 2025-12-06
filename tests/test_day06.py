@@ -15,11 +15,20 @@ def test_parse_input():
     assert parsed[1].operation == day06.OPERATIONS["*"]
 
 
+def test_parse_input_columns():
+    """Test parsing the input data with column spaces."""
+    input_data = load_file(day=6)
+    parsed = day06.parse_input_columns(input_data)
+    assert parsed[0].numbers == [12, 0]
+    assert parsed[0].operation == day06.OPERATIONS["+"]
+    assert parsed[1].numbers == [2, 5]
+    assert parsed[1].operation == day06.OPERATIONS["*"]
+
+
 def test_part1_example():
     """Test part 1 with example input."""
     input_data = load_file(day=6)
     result = day06.part1(input_data)
-    # TODO: Update with expected result from puzzle
     assert result == 112
 
 
@@ -27,5 +36,4 @@ def test_part2_example():
     """Test part 2 with example input."""
     input_data = load_file(day=6)
     result = day06.part2(input_data)
-    # TODO: Update with expected result from puzzle
-    assert result == 0
+    assert result == 22
