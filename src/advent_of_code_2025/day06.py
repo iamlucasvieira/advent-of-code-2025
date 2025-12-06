@@ -4,20 +4,13 @@ https://adventofcode.com/2025/day/6
 """
 
 from collections.abc import Callable
+from math import prod
 
 from pydantic.dataclasses import dataclass
 
-
-def multiply(nums: list[int]) -> int:
-    result = 1
-    for num in nums:
-        result *= num
-    return result
-
-
 OPERATIONS: dict[str, Callable[[list[int]], int]] = {
     "+": sum,
-    "*": multiply,
+    "*": prod,
 }
 
 
@@ -32,12 +25,11 @@ class Problem:
 
 def parse_input(input_data: str) -> list[Problem]:
     """Parse the input data for day 6."""
-    lines = input_data.strip().splitlines()
-    final_line = lines.pop(-1)
-    operations = final_line.split()
+    *number_lines, operations_line = input_data.strip().splitlines()
+    operations = operations_line.split()
     problems = [Problem(numbers=[], operation=OPERATIONS[op]) for op in operations]
 
-    for line in lines:
+    for line in number_lines:
         for idx, char in enumerate(line.split()):
             problems[idx].numbers.append(int(char))
     return problems
@@ -45,13 +37,12 @@ def parse_input(input_data: str) -> list[Problem]:
 
 def parse_input_columns(input_data: str) -> list[Problem]:
     """Parse the input data for day 6 respecting column spaces."""
-    lines = input_data.strip().splitlines()
-    final_line = lines.pop(-1)
-    operations = final_line.split()
+    *number_lines, operations_line = input_data.strip().splitlines()
+    operations = operations_line.split()
     problems = [Problem(numbers=[], operation=OPERATIONS[op]) for op in operations]
 
-    all_numbers = ["" for _ in range(len(lines[0]))]
-    for line in lines:
+    all_numbers = ["" for _ in range(len(number_lines[0]))]
+    for line in number_lines:
         for idx, char in enumerate(line):
             all_numbers[idx] += char
 
