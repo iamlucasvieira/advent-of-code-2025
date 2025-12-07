@@ -67,8 +67,35 @@ def part1(input_data: str) -> int:
     return splits
 
 
+def count_timelines(grid: Grid, pos: Point, memo: dict[Point, int]) -> int:
+    """Count the number of timelines from the given position."""
+
+    if grid.get_cell(pos) is None:
+        return 0
+
+    if pos.row == grid.n_rows - 1:
+        return 1
+
+    if pos in memo:
+        return memo[pos]
+
+    total_timelines = 0
+
+    if grid.get_cell(pos) == "^":
+        left_point = Point(row=pos.row, col=pos.col - 1)
+        right_point = Point(row=pos.row, col=pos.col + 1)
+        total_timelines += count_timelines(grid, left_point, memo)
+        total_timelines += count_timelines(grid, right_point, memo)
+    else:
+        down_point = Point(row=pos.row + 1, col=pos.col)
+        total_timelines += count_timelines(grid, down_point, memo)
+
+    memo[pos] = total_timelines
+    return total_timelines
+
+
 def part2(input_data: str) -> int:
     """Solve part 2 of day 7."""
-    _data = parse_input(input_data)
-    # TODO: Implement solution
-    return 0
+    grid, start = parse_input(input_data)
+    memo: dict[Point, int] = {}
+    return count_timelines(grid, start, memo)
