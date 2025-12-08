@@ -3,7 +3,7 @@
 https://adventofcode.com/2025/day/8
 """
 
-from collections import defaultdict
+from collections import defaultdict, deque
 from math import prod
 
 Coord3d = tuple[int, int, int]
@@ -42,9 +42,8 @@ def find_connected_components(graph: dict[Coord3d, set[Coord3d]]) -> list[set[Co
         if node in visited:
             continue
 
-        # DFS to explore the entire component
         component: set[Coord3d] = set()
-        stack: list[Coord3d] = [node]
+        stack = deque([node])
 
         while stack:
             current = stack.pop()
@@ -55,7 +54,6 @@ def find_connected_components(graph: dict[Coord3d, set[Coord3d]]) -> list[set[Co
             visited.add(current)
             component.add(current)
 
-            # Add all unvisited neighbors
             stack.extend(neighbor for neighbor in graph[current] if neighbor not in visited)
 
         components.append(component)
@@ -63,54 +61,28 @@ def find_connected_components(graph: dict[Coord3d, set[Coord3d]]) -> list[set[Co
     return components
 
 
-def group_coodinates(connected_coords: dict[Coord3d, set[Coord3d]]) -> list[set[Coord3d]]:
-    """Group coordinates into connected components."""
-    visited: set[Coord3d] = set()
-    groups: list[set[Coord3d]] = []
-
-    for coord in connected_coords.copy():
-        if coord in visited:
-            continue
-
-        group: set[Coord3d] = set()
-        stack: list[Coord3d] = [coord]
-
-        while stack:
-            current = stack.pop()
-            if current in visited:
-                continue
-
-            visited.add(current)
-            group.add(current)
-
-            stack.extend(connected_coords[current])
-        groups.append(group)
-
-    return groups
-
-
 def part1(input_data: str, num_connections: int) -> int:
     """Solve part 1 of day 8."""
-    distances: list[tuple[float, Coord3d, Coord3d]] = []
-    data = parse_input(input_data)
-    n_numbers = len(data)
+    points = parse_input(input_data)
 
-    for i in range(n_numbers):
-        for j in range(i + 1, n_numbers):
-            dist = euclidean_distance(data[i], data[j])
-            distances.append((dist, data[i], data[j]))
+    edges: list[tuple[float, Coord3d, Coord3d]] = [
+        (euclidean_distance(points[i], points[j]), points[i], points[j])
+        for i in range(len(points))
+        for j in range(i + 1, len(points))
+    ]
 
-    sorted_distances = sorted(distances)
+    edges.sort()
 
-    closest_points: dict[Coord3d, set[Coord3d]] = defaultdict(set)
-    for total_connections, (_, point_a, point_b) in enumerate(sorted_distances):
-        closest_points[point_b].add(point_a)
-        closest_points[point_a].add(point_b)
-        if total_connections == num_connections - 1:
-            break
+    graph: dict[Coord3d, set[Coord3d]] = defaultdict(set)
 
-    groups = group_coodinates(closest_points)
-    return prod(sorted(set(map(len, groups)))[-3:])
+    for _, point_a, point_b in edges[:num_connections]:
+        graph[point_a].add(point_b)
+        graph[point_b].add(point_a)
+
+    components = find_connected_components(graph)
+    component_sizes = sorted((len(comp) for comp in components), reverse=True)
+
+    return prod(component_sizes[:3])
 
 
 def part2(input_data: str) -> int:

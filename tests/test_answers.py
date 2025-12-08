@@ -196,7 +196,7 @@ TEST_CASES: list[AocTest] = [
     AocTest(
         test_file=InputFile(day=8, is_example=False, version_controlled=False),
         function=lambda input_data: day08.part1(input_data, num_connections=1000),
-        expected=0,
+        expected=50760,
     ),
 ]
 
