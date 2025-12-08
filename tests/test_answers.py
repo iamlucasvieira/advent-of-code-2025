@@ -7,7 +7,7 @@ import pytest
 from helpers import InputFile
 from pydantic import BaseModel, computed_field
 
-from advent_of_code_2025 import day01, day02, day03, day04, day05, day06, day07
+from advent_of_code_2025 import day01, day02, day03, day04, day05, day06, day07, day08
 
 
 class AocTest(BaseModel):
@@ -187,6 +187,16 @@ TEST_CASES: list[AocTest] = [
         test_file=InputFile(day=7, is_example=False, version_controlled=False),
         function=day07.part2,
         expected=36706966158365,
+    ),
+    AocTest(
+        test_file=InputFile(day=8, is_example=True, version_controlled=False),
+        function=lambda input_data: day08.part1(input_data, num_connections=10),
+        expected=40,
+    ),
+    AocTest(
+        test_file=InputFile(day=8, is_example=False, version_controlled=False),
+        function=lambda input_data: day08.part1(input_data, num_connections=1000),
+        expected=0,
     ),
 ]
 
