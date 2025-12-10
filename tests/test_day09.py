@@ -45,4 +45,4 @@ def test_part2_example():
     input_data = load_file(day=9)
     result = day09.part2(input_data)
     # TODO: Update with expected result from puzzle
-    assert result == 0
+    assert result == 36

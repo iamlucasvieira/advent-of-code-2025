@@ -78,51 +78,6 @@ def get_areas(grouped_points: dict[int, list[int]]) -> Iterator[tuple[Point, Poi
         yield p1, p2, get_area(p1, p2)
 
 
-def fill_polygon(polygon: list[Point]) -> set[Point]:  # noqa: C901
-    """Precompute all points inside/on the polygon boundary."""
-    if not polygon:
-        return set()
-
-    max_x = max(p.x for p in polygon)
-
-    filled = set()
-    for p1, p2 in zip(polygon, [*polygon[1:], polygon[0]], strict=True):
-        if p1.x == p2.x:
-            for y in range(min(p1.y, p2.y), max(p1.y, p2.y) + 1):
-                filled.add(Point(p1.x, y))
-        elif p1.y == p2.y:
-            for x in range(min(p1.x, p2.x), max(p1.x, p2.x) + 1):
-                filled.add(Point(x, p1.y))
-        else:
-            raise ValueError()
-
-    for p in filled.copy():
-        horizontal_line = set()
-        found_wall = False
-        for x in range(p.x + 1, max_x + 1):
-            horizontal_line.add(Point(x, p.y))
-            if Point(x, p.y) in filled:
-                found_wall = True
-                break
-
-        if found_wall:
-            filled.update(horizontal_line)
-
-    return filled
-
-
-def rectangle_fully_inside(p1: Point, p2: Point, filled_polygon: set[Point]) -> bool:
-    """Check if entire rectangle is inside using precomputed set."""
-    min_x, max_x = min(p1.x, p2.x), max(p1.x, p2.x)
-    min_y, max_y = min(p1.y, p2.y), max(p1.y, p2.y)
-
-    for x in range(min_x, max_x + 1):
-        for y in range(min_y, max_y + 1):
-            if Point(x, y) not in filled_polygon:
-                return False
-    return True
-
-
 def get_all_rectangle_candidates(points: list[Point]) -> Iterator[tuple[Point, Point, int]]:
     """Generate all possible rectangles using red tiles as diagonal corners."""
     for i, p1 in enumerate(points):
@@ -136,18 +91,46 @@ def find_max_area(grouped_points: dict[int, list[int]]) -> int:
     return max(get_areas(grouped_points), key=lambda item: item[2])[2]
 
 
-def find_max_area_in_polygon(points: list[Point], polygon: set[Point]) -> int:
-    """Find the maximum area formed by points within a polygon."""
-    max_area = 0
-    for i, p1 in enumerate(points):
-        for p2 in points[i + 1 :]:
-            p3, p4 = Point(p1.x, p2.y), Point(p2.x, p1.y)
-            if p3 not in polygon or p4 not in polygon:
-                print(f"Skipping rectangle with corners {p1}, {p2} - not fully inside polygon")
-                continue
-            area = get_area(p1, p2)
-            max_area = max(max_area, area)
-    return max_area
+def get_green_lines(polygon: list[Point]) -> list[tuple[Point, Point]]:
+    """Get all green line segments (edges between consecutive red tiles)."""
+    lines = []
+    for i in range(len(polygon)):
+        p1 = polygon[i]
+        p2 = polygon[(i + 1) % len(polygon)]
+        lines.append((p1, p2))
+    return lines
+
+
+def line_intersects_rectangle(line_start: Point, line_end: Point, rect_p1: Point, rect_p2: Point) -> bool:
+    """Check if a line segment intersects the interior of a rectangle."""
+    min_x, max_x = min(rect_p1.x, rect_p2.x), max(rect_p1.x, rect_p2.x)
+    min_y, max_y = min(rect_p1.y, rect_p2.y), max(rect_p1.y, rect_p2.y)
+
+    line_min_x, line_max_x = min(line_start.x, line_end.x), max(line_start.x, line_end.x)
+    line_min_y, line_max_y = min(line_start.y, line_end.y), max(line_start.y, line_end.y)
+
+    return line_min_x < max_x and line_max_x > min_x and line_min_y < max_y and line_max_y > min_y
+
+
+def find_max_area_in_polygon(polygon: list[Point]) -> int:
+    """Find the maximum area using green line intersection check."""
+
+    candidates = sorted(get_all_rectangle_candidates(polygon), key=lambda x: x[2], reverse=True)
+
+    green_lines = get_green_lines(polygon)
+    green_lines.sort(key=lambda line: abs(line[1].x - line[0].x) + abs(line[1].y - line[0].y), reverse=True)
+
+    for p1, p2, area in candidates:
+        has_intersection = False
+        for line_start, line_end in green_lines:
+            if line_intersects_rectangle(line_start, line_end, p1, p2):
+                has_intersection = True
+                break
+
+        if not has_intersection:
+            return area
+
+    return 0
 
 
 def part1(input_data: str) -> int:
@@ -160,5 +143,4 @@ def part1(input_data: str) -> int:
 def part2(input_data: str) -> int:
     """Solve part 2 of day 9."""
     points = parse_input(input_data)
-    polygon = fill_polygon(points)
-    return find_max_area_in_polygon(points, polygon)
+    return find_max_area_in_polygon(points)
